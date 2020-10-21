@@ -2,21 +2,40 @@
 
 // var gKeywords = { 'happy': 12, 'funny puk': 1 };
 var gImgs;
+var gMeme;
 createImgs();
-var gMeme = _createMeme();
 
-function _createMeme(selectedImgId = 1, txt = '') {
-    const meme = {
-        selectedImgId,
-        selectedLineIdx: 0,
-        lines: [{
-            txt,
-            size: 20,
-            align: 'left',
-            color: 'white'
-        }]
+function changeFontFamily(font) {
+    const line = gMeme.lines[gMeme.selectedLineIdx];
+    line.font.family = font;
+    // for later
+}
+
+function changeFontSize(num) {
+    const line = gMeme.lines[gMeme.selectedLineIdx];
+    line.font.size += num;
+}
+
+function changeLinePos(num) {
+    const line = gMeme.lines[gMeme.selectedLineIdx];
+    line.pos.y += -num;
+}
+
+function getLines() {
+    return gMeme.lines;
+}
+
+function addLine() {
+    _createLine();
+    gMeme.selectedLineIdx++;
+    if (gMeme.selectedLineIdx < 2) {
+        gMeme.lines[gMeme.selectedLineIdx].pos.y = 450
+        gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'bottom'
+        return;
     }
-    return meme;
+    gMeme.lines[gMeme.selectedLineIdx].pos.y = 225
+    gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'center'
+        //TODO - get canvas size
 }
 
 function getCurrImg() {
@@ -28,11 +47,11 @@ function setMemeImg(id) {
 }
 
 function addTxt(txt) {
-    gMeme.lines[0].txt = txt;
+    gMeme.lines[gMeme.selectedLineIdx].txt = txt;
 }
 
 function getTxt() {
-    const txt = gMeme.lines[0].txt;
+    const txt = gMeme.lines[gMeme.selectedLineIdx].txt;
     console.log(txt);
     return txt
 }
@@ -46,6 +65,39 @@ function getImgById(ImgId) {
         return (img.id === ImgId);
     })
     return img;
+}
+
+function createMeme(selectedImgId = 1) {
+    const meme = {
+        selectedImgId,
+        selectedLineIdx: 0,
+        lines: []
+    }
+    gMeme = meme;
+    _createLine();
+}
+
+function _createLine() {
+    const line = {
+        txt: '',
+        font: {
+            size: 48,
+            family: 'Impact',
+        },
+        pos: {
+            // x: getCanvasXCenter(),
+            x: 225,
+            y: 0,
+        },
+        features: {
+            textAlign: 'center',
+            textBaseline: 'top',
+            lineWidth: '2',
+            strookeColor: 'black',
+            fillColor: 'white'
+        }
+    }
+    gMeme.lines.push(line)
 }
 
 function createImgs() {

@@ -25,6 +25,7 @@ function renderImgs() {
 
 function imgClicked(id) {
     console.log('I clicked on this Img...');
+    createMeme();
     setMemeImg(id);
     drawImg();
 }
@@ -40,8 +41,13 @@ function drawImg() {
 
 }
 
+function onAddLine() {
+    document.querySelector('input[name=txt-input]').value = ''
+    addLine();
+    drawImg();
+}
+
 function onAddTxt(ev) {
-    ev.preventDefault();
     const txt = document.querySelector('input[name=txt-input]').value
     addTxt(txt);
     drawImg();
@@ -49,16 +55,44 @@ function onAddTxt(ev) {
 
 function drawTxt() {
     console.log('drawing txt...');
-    const txt = getTxt();
-    console.log(txt);
-    gCtx.lineWidth = '2'
-    gCtx.font = '48px Impact'
-    gCtx.textAlign = 'center'
-    gCtx.textBaseline = "top";
-    gCtx.fillText(txt, gCanvas.width / 2, 0)
-    gCtx.strokeText(txt, gCanvas.width / 2, 0)
+    const lines = getLines();
+    console.log(lines);
+    lines.forEach(function(line) {
+        gCtx.font = `${line.font.size}px ${line.font.family}`;
+        gCtx.lineWidth = line.features.lineWidth
+        gCtx.textAlign = line.features.textAlign
+        gCtx.textBaseline = line.features.textBaseline;
+        gCtx.fillText(line.txt, line.pos.x, line.pos.y)
+        gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
+    });
+}
+
+function onChangeFontSize(num) {
+    changeFontSize(num);
+    drawImg()
+}
+
+function onChangeLinePos(num) {
+    changeLinePos(num);
+    drawImg()
 }
 
 function canvasClicked(ev) {
-    console.log(ev);
+    console.log('canvas clicked event', ev);
+    // for me
 }
+
+function downloadCanvas(elLink) {
+    const data = gCanvas.toDataURL()
+    elLink.href = data
+}
+
+function ShareCanvas(el) {
+    console.log('sharing');
+    // TODO: add share option
+}
+
+// function getCanvasXCenter() {
+//     // console.log(gCanvas.width);
+//     return (gCanvas.width / 2);
+// }

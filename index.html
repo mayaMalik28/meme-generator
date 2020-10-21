@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>meme-generator</title>
 </head>
 
 <body onload="onInit()">
@@ -18,24 +18,28 @@
         </ul>
     </nav>
     <div class="meme-editor">
-        <!-- <header>My Meme Generator!!!</header> -->
-        <canvas id="my-canvas" height="450" width="450" onclick="canvasClicked(event)"></canvas>
-        <form onsubmit="onAddTxt(event)">
-            <input name="txt-input" type="text">
-            <button>go</button>
-        </form>
+        <div class="canvas-container">
+            <canvas id="my-canvas" height="450" width="450" onclick="canvasClicked(event)"></canvas>
+        </div>
+        <div class="editing-tools">
+            <input onkeyup="onAddTxt(event)" name="txt-input" type="text">
+            <button class="btn btn-increace-font" onclick="onChangeFontSize(2)">A+</button>
+            <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)">A-</button>
+            <button class="btn btn-decreace-font" onclick="onChangeLinePos(2)">⬆</button>
+            <button class="btn btn-decreace-font" onclick="onChangeLinePos(-2)">⬇</button>
+            <button class="btn btn-decreace-font" onclick="onAddLine()">+</button>
+            <!-- <form> -->
+            <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a>
+            <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
+            <!-- </form> -->
+        </div>
     </div>
     <div class="img-gallery hide">
         <div class="search">
             search your Img...
         </div>
         <div class="img-container">
-            <img src="./meme-imgs/10.jpg" alt="">
-            <img src="./meme-imgs/10.jpg" alt="">
-            <img src="./meme-imgs/10.jpg" alt="">
-            <img src="./meme-imgs/10.jpg" alt="">
-            <img src="./meme-imgs/10.jpg" alt="">
-            <img src="./meme-imgs/10.jpg" alt="">
+            <!-- <img src="./meme-imgs/10.jpg" alt=""> -->
         </div>
     </div>
 

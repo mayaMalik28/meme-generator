@@ -6,8 +6,28 @@ html {
     font-family: cursive;
 }
 
+.meme-editor {
+    margin-top: 10px;
+    display: flex;
+}
+
+.meme-editor>* {
+    display: inline-block;
+    flex-grow: 1;
+}
+
+.editing-tools {
+    margin: auto;
+}
+
+.editing-tools>* {
+    display: inline-block;
+}
+
 canvas {
+    display: block;
     border: black solid 1px;
+    margin: 0 auto;
 }
 
 nav {
@@ -39,7 +59,6 @@ nav .logo {
 .img-container {
     margin: auto;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-wrap: wrap;
 }
