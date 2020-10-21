@@ -4,11 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 
-<body>
-    <header>My Meme Generator!!!</header>
+<body onload="onInit()">
+    <!-- <header>My Meme Generator!!!</header> -->
+    <canvas id="my-canvas" height="450" width="450"></canvas>
+    <form onsubmit="onAddTxt(event)">
+        <input name="txt-input" type="text">
+        <button>go</button>
+    </form>
+
+
+    <script src="js/utils.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/meme-services.js"></script>
 </body>
 
 </html>
