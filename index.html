@@ -9,12 +9,35 @@
 </head>
 
 <body onload="onInit()">
-    <!-- <header>My Meme Generator!!!</header> -->
-    <canvas id="my-canvas" height="450" width="450"></canvas>
-    <form onsubmit="onAddTxt(event)">
-        <input name="txt-input" type="text">
-        <button>go</button>
-    </form>
+    <nav>
+        <div class="logo">LOGO</div>
+        <ul nav>
+            <li>Gallery</li>
+            <li>Memes</li>
+            <li>About</li>
+        </ul>
+    </nav>
+    <div class="meme-editor">
+        <!-- <header>My Meme Generator!!!</header> -->
+        <canvas id="my-canvas" height="450" width="450" onclick="canvasClicked(event)"></canvas>
+        <form onsubmit="onAddTxt(event)">
+            <input name="txt-input" type="text">
+            <button>go</button>
+        </form>
+    </div>
+    <div class="img-gallery hide">
+        <div class="search">
+            search your Img...
+        </div>
+        <div class="img-container">
+            <img src="./meme-imgs/10.jpg" alt="">
+            <img src="./meme-imgs/10.jpg" alt="">
+            <img src="./meme-imgs/10.jpg" alt="">
+            <img src="./meme-imgs/10.jpg" alt="">
+            <img src="./meme-imgs/10.jpg" alt="">
+            <img src="./meme-imgs/10.jpg" alt="">
+        </div>
+    </div>
 
 
     <script src="js/utils.js"></script>

@@ -10,11 +10,27 @@ function onInit() {
     // not sure why I need this ??
     gCtx.fillStyle = 'white'
     gCtx.strokeStyle = 'black'
+        // drawImg();
+    renderImgs();
+}
+
+function renderImgs() {
+    const imgs = getImgs();
+    var strHTML = imgs.reduce(function(str, img) {
+        return str + `<img src="${img.url}" onclick="imgClicked(${img.id})" alt="">`
+    }, '')
+    document.querySelector('.img-container').innerHTML = strHTML;
+
+}
+
+function imgClicked(id) {
+    console.log('I clicked on this Img...');
+    setMemeImg(id);
     drawImg();
 }
 
 function drawImg() {
-    const img = getImgById(1);
+    const img = getCurrImg();
     var elImg = new Image();
     elImg.src = img.url;
     elImg.onload = () => {
@@ -37,9 +53,12 @@ function drawTxt() {
     console.log(txt);
     gCtx.lineWidth = '2'
     gCtx.font = '48px Impact'
-    gCtx.textAlign = 'start'
-    gCtx.fillText(txt, 200, 200)
-    gCtx.strokeText(txt, 200, 200)
-        //prooblem wiyh position 0,0 - can't see it!!
+    gCtx.textAlign = 'center'
+    gCtx.textBaseline = "top";
+    gCtx.fillText(txt, gCanvas.width / 2, 0)
+    gCtx.strokeText(txt, gCanvas.width / 2, 0)
+}
 
+function canvasClicked(ev) {
+    console.log(ev);
 }
