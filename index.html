@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <title>meme-generator</title>
 </head>
 
@@ -25,19 +26,20 @@
             <div class="editing-tools-container">
                 <input onkeyup="onAddTxt(event)" name="txt-input" type="text">
                 <div class="line-tools">
-                    <button class="btn btn-decreace-font" onclick="onChangeLinePos(2)">⬆</button>
-                    <button class="btn btn-decreace-font" onclick="onChangeLinePos(-2)">⬇</button>
-                    <button class="btn btn-decreace-font" onclick="onChangeFocusedLine()">⬇⬆</button>
-                    <button class="btn btn-decreace-font" onclick="onAddLine()">+</button>
-                    <button class="btn btn-decreace-font" onclick="onRemoveLine()">Remove</button>
+                    <button class="btn btn-up" onclick="onChangeLinePos(2)"></button>
+                    <button class="btn btn-down" onclick="onChangeLinePos(-2)"></button>
+                    <button class="btn btn-change-line" onclick="onChangeFocusedLine()"></button>
+                    <button class="btn btn-add-line" onclick="onAddLine()"></button>
+                    <button class="btn btn-remove-line" onclick="onRemoveLine()"></button>
                 </div>
                 <div class="txt-tools">
-                    <button class="btn btn-increace-font" onclick="onChangeFontSize(2)">A+</button>
-                    <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)">A-</button>
-                    <button class="btn btn-Align-left" onclick="onChangeTxtAlign('end')">end</button>
-                    <button class="btn btn-Align-crnter" onclick="onChangeTxtAlign('center')">center</button>
-                    <button class="btn btn-btn-Align-right" onclick="onChangeTxtAlign('start')">start</button>
-                    <select onchange="onChangeFontFamily(this)">
+                    <button class="btn btn-increace-font" onclick="onChangeFontSize(2)"></button>
+                    <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)"></button>
+                    <button class="btn btn-Align-left" onclick="onChangeTxtAlign('end')"></button>
+                    <button class="btn btn-Align-center" onclick="onChangeTxtAlign('center')"></button>
+                    <button class="btn btn-Align-right" onclick="onChangeTxtAlign('start')"></button>
+                    <!-- <label class="btn-select" for="select-font"></label> -->
+                    <select class="btn-select" onchange="onChangeFontFamily(this)" id="select-font">
                         <option value="Arial">Arial</option>
                         <option value="Verdana">Verdana</option>
                         <option value="Times New Roman">Times New Roman</option>
@@ -45,16 +47,22 @@
                         <option value="serif">serif</option>
                         <option value="sans-serif">sans-serif</option>
                     </select>
-                    <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input">
-                    <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input">
+                    <label class="btn btn-stroke-color" for="Stroke-color-input"></label>
+                    <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input" hidden>
+                    <label class="btn btn-fill-color" for="fill-color-input"></label>
+                    <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input" hidden>
                 </div>
-                <div class="sticker-tools">
+                <!-- <div class="sticker-tools">
                     stickers
-                </div>
+                </div> -->
                 <div class="download-tools">
-                    <!-- <form> -->
-                    <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a>
-                    <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
+                    <form action="" method="POST" enctype="multipart/form-data" onload="uploadImg(this, event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <div class="share-container btn"></div>
+                        <a href="#" class="download-container btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a>
+                    </form>
+                    <!-- <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
+                    <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a> -->
                 </div>
                 <!-- </form> -->
             </div>

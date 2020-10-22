@@ -28,6 +28,11 @@ a:active {
     color: inherit;
 }
 
+button {
+    cursor: pointer;
+    font-family: poppins;
+}
+
 
 /* Layout */
 
@@ -40,7 +45,7 @@ a:active {
 }
 
 .gallery-container.gallery {
-    /* height: 100vh; */
+    min-height: 100vh;
     padding: 15px;
     background-color: #22252c;
     display: flex;
@@ -73,7 +78,7 @@ a:active {
 
 .editing-tools-container {
     /* flex-grow: 3; */
-    width: 60%;
+    width: 55%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -83,7 +88,7 @@ a:active {
 
 .canvas-container {
     /* flex-grow: 1; */
-    width: 40%;
+    width: 45%;
     margin-right: 40px;
     margin-left: 40px;
 }
@@ -107,7 +112,8 @@ nav {
 .gallery-container.editor {
     background-color: #22252c;
     /* background-image: url(../imgs/editor-bgc-img.png);
-    background-repeat: no-repeat; */
+    background-repeat: no-repeat;
+    background-size: cover; */
 }
 
 
@@ -174,14 +180,17 @@ canvas {
     padding: 10px;
 }
 
-.editing-tools-container button,
-.editing-tools-container input[type="color"] {
+.editing-tools-container .btn,
+.editing-tools-container label .btn {
     height: 55px;
     width: 55px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .editing-tools-container .line-tools {
@@ -190,12 +199,17 @@ canvas {
     justify-content: center;
 }
 
-.editing-tools-container .download-tools {
+.editing-tools-container .download-tools form {
     display: flex;
 }
 
-.editing-tools-container .download-tools a {
-    width: 50%;
+.download-tools form>* {
+    display: inline-block;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.editing-tools-container .download-tools form .btn {
     height: 55px;
     padding: 5px;
     margin-left: 5px;
@@ -204,15 +218,24 @@ canvas {
     background-color: #ebeef3;
     border-radius: 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.editing-tools-container select {
-    height: 45px;
+.editing-tools-container .btn-select {
+    height: 55px;
     /* width: 55px; */
     border-radius: 10px;
     border: none;
     cursor: pointer;
     grid-column: 1/span 3;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    border-radius: 10px;
+    background-color: #ffffff;
+    background-color: #ffffff;
+    font-family: poppins;
+    padding: 10px;
 }
 
 .editing-tools-container .txt-tools {
