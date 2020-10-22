@@ -11,8 +11,14 @@ function onInit() {
     renderImgs();
 }
 
-
-
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container');
+    const canvasSize = (elContainer.offsetWidth > elContainer.offsetHeight) ? elContainer.offsetHeight * 0.9 : elContainer.offsetWidth * 0.9;
+    gCanvas.width = canvasSize; // show width & height in CSS
+    gCanvas.height = canvasSize;
+    setCanvasSize(canvasSize);
+    // drawImg();
+}
 
 function onAddLine() {
     document.querySelector('input[name=txt-input]').value = ''
@@ -119,9 +125,21 @@ function renderImgs() {
 }
 
 function imgClicked(id) {
+    document.querySelector('.img-gallery').classList.add('hide');
+    document.querySelector('.meme-editor-container').classList.remove('hide');
+    document.querySelector('.gallery-container').classList.add('editor');
+    document.querySelector('.gallery-container').classList.remove('gallery');
     createMeme();
     setMemeImg(id);
+    resizeCanvas();
     drawImg();
+}
+
+function onGalleryClicked() {
+    document.querySelector('.img-gallery').classList.remove('hide');
+    document.querySelector('.meme-editor-container').classList.add('hide');
+    document.querySelector('.gallery-container').classList.remove('editor');
+    document.querySelector('.gallery-container').classList.add('gallery');
 }
 
 

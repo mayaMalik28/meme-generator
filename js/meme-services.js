@@ -53,11 +53,11 @@ function addLine() {
     _createLine();
     gMeme.selectedLineIdx = gMeme.lines.length - 1
     if (gMeme.selectedLineIdx < 2) {
-        gMeme.lines[gMeme.selectedLineIdx].pos.y = 450
+        gMeme.lines[gMeme.selectedLineIdx].pos.y = gMeme.canvasSize;
         gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'bottom'
         return;
     }
-    gMeme.lines[gMeme.selectedLineIdx].pos.y = 225
+    gMeme.lines[gMeme.selectedLineIdx].pos.y = gMeme.canvasSize / 2;
     gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'center'
         //TODO - get canvas size
         // TODO - think if thoos function can be more efficient
@@ -69,7 +69,14 @@ function removeLine() {
 }
 
 function getCurrImg() {
+    console.log(gMeme.selectedImgId);
     return getImgById(gMeme.selectedImgId);
+}
+
+function setCanvasSize(size) {
+    gMeme.canvasSize = size;
+    gMeme.lines[0].pos.x = size / 2;
+    // TODO: find better solution
 }
 
 function setMemeImg(id) {
@@ -99,6 +106,7 @@ function getImgById(ImgId) {
 
 function createMeme(selectedImgId = 1) {
     const meme = {
+        canvasSize: 450,
         selectedImgId,
         selectedLineIdx: 0,
         lines: []
@@ -115,8 +123,7 @@ function _createLine() {
             family: 'Impact',
         },
         pos: {
-            // x: getCanvasXCenter(),
-            x: 225,
+            x: gMeme.canvasSize / 2,
             y: 0,
         },
         features: {

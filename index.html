@@ -9,61 +9,63 @@
 </head>
 
 <body onload="onInit()">
-    <nav>
-        <div class="logo">LOGO</div>
-        <ul nav>
-            <li>Gallery</li>
-            <li>Memes</li>
-            <li>About</li>
-        </ul>
-    </nav>
-    <div class="meme-editor">
-        <div class="canvas-container">
-            <canvas id="my-canvas" height="450" width="450" onclick="canvasClicked(event)"></canvas>
+    <div class="gallery-container gallery">
+        <nav>
+            <div class="logo">LOGO</div>
+            <ul nav>
+                <li class="active" onclick="onGalleryClicked()">Gallery</li>
+                <li>Memes</li>
+                <li>About</li>
+            </ul>
+        </nav>
+        <div class="meme-editor-container hide">
+            <div class="canvas-container">
+                <canvas id="my-canvas" height="450" width="450" onclick="canvasClicked(event)"></canvas>
+            </div>
+            <div class="editing-tools-container">
+                <input onkeyup="onAddTxt(event)" name="txt-input" type="text">
+                <div class="line-tools">
+                    <button class="btn btn-decreace-font" onclick="onChangeLinePos(2)">⬆</button>
+                    <button class="btn btn-decreace-font" onclick="onChangeLinePos(-2)">⬇</button>
+                    <button class="btn btn-decreace-font" onclick="onChangeFocusedLine()">⬇⬆</button>
+                    <button class="btn btn-decreace-font" onclick="onAddLine()">+</button>
+                    <button class="btn btn-decreace-font" onclick="onRemoveLine()">Remove</button>
+                </div>
+                <div class="txt-tools">
+                    <button class="btn btn-increace-font" onclick="onChangeFontSize(2)">A+</button>
+                    <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)">A-</button>
+                    <button class="btn btn-Align-left" onclick="onChangeTxtAlign('end')">end</button>
+                    <button class="btn btn-Align-crnter" onclick="onChangeTxtAlign('center')">center</button>
+                    <button class="btn btn-btn-Align-right" onclick="onChangeTxtAlign('start')">start</button>
+                    <select onchange="onChangeFontFamily(this)">
+                        <option value="Arial">Arial</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="serif">serif</option>
+                        <option value="sans-serif">sans-serif</option>
+                    </select>
+                    <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input">
+                    <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input">
+                </div>
+                <div class="sticker-tools">
+                    stickers
+                </div>
+                <div class="download-tools">
+                    <!-- <form> -->
+                    <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a>
+                    <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
+                </div>
+                <!-- </form> -->
+            </div>
         </div>
-        <div class="editing-tools">
-            <input onkeyup="onAddTxt(event)" name="txt-input" type="text">
-            <div class="line-tools">
-                <button class="btn btn-decreace-font" onclick="onChangeLinePos(2)">⬆</button>
-                <button class="btn btn-decreace-font" onclick="onChangeLinePos(-2)">⬇</button>
-                <button class="btn btn-decreace-font" onclick="onChangeFocusedLine()">⬇⬆</button>
-                <button class="btn btn-decreace-font" onclick="onAddLine()">+</button>
-                <button class="btn btn-decreace-font" onclick="onRemoveLine()">Remove</button>
+        <div class="img-gallery">
+            <div class="search">
+                search your Img...
             </div>
-            <div class="txt-tools">
-                <button class="btn btn-increace-font" onclick="onChangeFontSize(2)">A+</button>
-                <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)">A-</button>
-                <button class="btn btn-decreace-font" onclick="onChangeTxtAlign('end')">end</button>
-                <button class="btn btn-decreace-font" onclick="onChangeTxtAlign('center')">center</button>
-                <button class="btn btn-decreace-font" onclick="onChangeTxtAlign('start')">start</button>
-                <select onchange="onChangeFontFamily(this)">
-                    <option value="Arial">Arial</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="serif">serif</option>
-                    <option value="sans-serif">sans-serif</option>
-                </select>
-                <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input">
-                <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input">
+            <div class="img-container">
+                <!-- <img src="./meme-imgs/10.jpg" alt=""> -->
             </div>
-            <div class="sticker-tools">
-                stickers
-            </div>
-            <div class="download-tools">
-                <!-- <form> -->
-                <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a>
-                <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
-            </div>
-            <!-- </form> -->
-        </div>
-    </div>
-    <div class="img-gallery hide">
-        <div class="search">
-            search your Img...
-        </div>
-        <div class="img-container">
-            <!-- <img src="./meme-imgs/10.jpg" alt=""> -->
         </div>
     </div>
 
