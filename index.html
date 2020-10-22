@@ -23,14 +23,38 @@
         </div>
         <div class="editing-tools">
             <input onkeyup="onAddTxt(event)" name="txt-input" type="text">
-            <button class="btn btn-increace-font" onclick="onChangeFontSize(2)">A+</button>
-            <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)">A-</button>
-            <button class="btn btn-decreace-font" onclick="onChangeLinePos(2)">⬆</button>
-            <button class="btn btn-decreace-font" onclick="onChangeLinePos(-2)">⬇</button>
-            <button class="btn btn-decreace-font" onclick="onAddLine()">+</button>
-            <!-- <form> -->
-            <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a>
-            <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
+            <div class="line-tools">
+                <button class="btn btn-decreace-font" onclick="onChangeLinePos(2)">⬆</button>
+                <button class="btn btn-decreace-font" onclick="onChangeLinePos(-2)">⬇</button>
+                <button class="btn btn-decreace-font" onclick="onChangeFocusedLine()">⬇⬆</button>
+                <button class="btn btn-decreace-font" onclick="onAddLine()">+</button>
+                <button class="btn btn-decreace-font" onclick="onRemoveLine()">Remove</button>
+            </div>
+            <div class="txt-tools">
+                <button class="btn btn-increace-font" onclick="onChangeFontSize(2)">A+</button>
+                <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)">A-</button>
+                <button class="btn btn-decreace-font" onclick="onChangeTxtAlign('end')">end</button>
+                <button class="btn btn-decreace-font" onclick="onChangeTxtAlign('center')">center</button>
+                <button class="btn btn-decreace-font" onclick="onChangeTxtAlign('start')">start</button>
+                <select onchange="onChangeFontFamily(this)">
+                    <option value="Arial">Arial</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="serif">serif</option>
+                    <option value="sans-serif">sans-serif</option>
+                </select>
+                <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input">
+                <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input">
+            </div>
+            <div class="sticker-tools">
+                stickers
+            </div>
+            <div class="download-tools">
+                <!-- <form> -->
+                <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a>
+                <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
+            </div>
             <!-- </form> -->
         </div>
     </div>

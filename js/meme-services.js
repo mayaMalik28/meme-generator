@@ -6,28 +6,52 @@ var gMeme;
 createImgs();
 
 function changeFontFamily(font) {
+    // TODO: maybe use get focused line?
     const line = gMeme.lines[gMeme.selectedLineIdx];
     line.font.family = font;
     // for later
 }
 
 function changeFontSize(num) {
+    // TODO: maybe use get focused line?
     const line = gMeme.lines[gMeme.selectedLineIdx];
     line.font.size += num;
 }
 
+function changeStrokeColor(color) {
+    getFocusedLine().features.strokeColor = color;
+}
+
+function changeFillColor(color) {
+    getFocusedLine().features.fillColor = color;
+}
+
+function changeTxtAlign(align) {
+    getFocusedLine().features.textAlign = align;
+}
+
 function changeLinePos(num) {
+    // TODO: maybe use get focused line?
     const line = gMeme.lines[gMeme.selectedLineIdx];
     line.pos.y += -num;
+}
+
+function changeFocusedLine() {
+    gMeme.selectedLineIdx = (gMeme.selectedLineIdx < gMeme.lines.length - 1) ? gMeme.selectedLineIdx + 1 : 0
+        // TODO: get a marker in the current line
 }
 
 function getLines() {
     return gMeme.lines;
 }
 
+function getFocusedLine() {
+    return gMeme.lines[gMeme.selectedLineIdx];
+}
+
 function addLine() {
     _createLine();
-    gMeme.selectedLineIdx++;
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
     if (gMeme.selectedLineIdx < 2) {
         gMeme.lines[gMeme.selectedLineIdx].pos.y = 450
         gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'bottom'
@@ -36,6 +60,12 @@ function addLine() {
     gMeme.lines[gMeme.selectedLineIdx].pos.y = 225
     gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'center'
         //TODO - get canvas size
+        // TODO - think if thoos function can be more efficient
+}
+
+function removeLine() {
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    changeFocusedLine();
 }
 
 function getCurrImg() {
@@ -93,7 +123,7 @@ function _createLine() {
             textAlign: 'center',
             textBaseline: 'top',
             lineWidth: '2',
-            strookeColor: 'black',
+            strokeColor: 'black',
             fillColor: 'white'
         }
     }

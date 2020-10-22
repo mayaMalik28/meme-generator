@@ -18,6 +18,9 @@ html {
 
 .editing-tools {
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .editing-tools>* {
