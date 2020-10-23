@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    outline: none;
 }
 
 
@@ -31,25 +32,30 @@ a:active {
 button {
     cursor: pointer;
     font-family: poppins;
+    border: 0px;
+}
+
+input,
+select {
+    border: none;
 }
 
 
 /* Layout */
 
-.gallery-container.editor {
-    height: 100vh;
-    padding: 15px;
+.container {
     background-color: #22252c;
     display: flex;
     flex-direction: column;
+    padding: 15px;
 }
 
-.gallery-container.gallery {
+.container.gallery-container.editor {
+    height: 100vh;
+}
+
+.container.gallery-container.gallery {
     min-height: 100vh;
-    padding: 15px;
-    background-color: #22252c;
-    display: flex;
-    flex-direction: column;
 }
 
 
@@ -64,39 +70,7 @@ button {
 }
 
 
-/* editor-Layout */
-
-.meme-editor-container {
-    flex-grow: 1;
-    display: flex;
-    /* width: 100vh; */
-}
-
-.meme-editor-container>* {
-    display: flex;
-}
-
-.editing-tools-container {
-    /* flex-grow: 3; */
-    width: 55%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20;
-}
-
-.canvas-container {
-    /* flex-grow: 1; */
-    width: 45%;
-    margin-right: 40px;
-    margin-left: 40px;
-}
-
-
-/* .editing-tools-container>* {
-    display: inline-block;
-} */
+/* nav */
 
 nav {
     padding-left: 80px;
@@ -104,43 +78,25 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-
-/* Gallery - editor */
-
-.gallery-container.editor {
-    background-color: #22252c;
-    /* background-image: url(../imgs/editor-bgc-img.png);
-    background-repeat: no-repeat;
-    background-size: cover; */
-}
-
-
-/* nav */
-
-nav {
     color: white;
     border-radius: 50px;
-    /* font-size: 1.2rem; */
+    font-size: 1.2rem;
     background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
 }
 
-nav ul li:hover {
-    font-weight: bold;
+nav ul {
+    margin: 10px;
 }
 
 nav ul li {
     display: inline-block;
     list-style: none;
-    padding: 10px 20px;
-    /* padding-right: 20px; */
-    /* padding-left: 20px; */
+    padding: 5px 20px;
     cursor: pointer;
 }
 
-nav ul {
-    margin: 15px;
+nav ul li:hover {
+    font-weight: bold;
 }
 
 nav ul li.active {
@@ -151,9 +107,23 @@ nav ul li.active {
 
 nav .logo {
     display: inline-block;
-    margin: 0;
     cursor: pointer;
-    height: fit-content;
+}
+
+nav .btn-hamburger {
+    display: none;
+}
+
+
+/* editor-Layout */
+
+.meme-editor-container {
+    flex-grow: 1;
+    display: flex;
+}
+
+.meme-editor-container>* {
+    display: flex;
 }
 
 
@@ -166,40 +136,90 @@ canvas {
     box-shadow: 0px 0px 6px 0px white;
 }
 
-
-/* editig-tools-container */
-
-.editing-tools-container {
-    background-color: #383b42;
-    height: 90%;
-    border-radius: 20px;
+.meme-editor-container .canvas-container {
+    flex-grow: 1;
     margin-right: 40px;
+    margin-left: 40px;
+}
+
+
+/* tools-container */
+
+.meme-editor-container .tools-container {
+    height: 90%;
+    flex-grow: 1;
+    max-width: 600px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 40px;
+    padding: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: stretch;
-    padding: 10px;
+    background-color: #383b42;
+    border-radius: 20px;
 }
 
-.editing-tools-container .btn,
-.editing-tools-container label .btn {
+.meme-editor-container .tools-container .btn {
     height: 55px;
     width: 55px;
+    margin: 5px;
     border-radius: 10px;
-    border: none;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tools-container input[name="txt-input"] {
+    height: 55px;
+    font-size: 1.5rem;
+    font-family: Impact, sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 30px;
+    background-color: #ebeef3;
+    box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
+}
+
+.meme-editor-container .tools-container .line-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.tools-container .txt-tools {
+    background-color: #19a59f;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+}
+
+.tools-container .txt-tools>* {
+    justify-self: center;
+    align-self: center;
     margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.editing-tools-container .line-tools {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.tools-container .txt-tools .btn-select {
+    height: 55px;
+    grid-column: 1/span 3;
+    justify-self: stretch;
+    font-family: poppins;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
 }
 
-.editing-tools-container .download-tools form {
+.meme-editor-container .tools-container .download-tools form {
     display: flex;
 }
 
@@ -209,57 +229,38 @@ canvas {
     text-align: center;
 }
 
-.editing-tools-container .download-tools form .btn {
-    height: 55px;
-    padding: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
-    background-color: #ebeef3;
+.tools-container .download-tools form .btn {
+    color: white;
+    font-size: 1.3rem;
     border-radius: 20px;
-    cursor: pointer;
+}
+
+.tools-container .download-tools form .btn img {
+    margin-right: 10px;
+}
+
+
+/* modal */
+
+.tools-container .download-tools .modal {
+    position: fixed;
+    top: 40%;
+    right: 40%;
+    background-color: #d9dce6;
+    border: #6f7481 solid 1px;
+    border-radius: 15px;
+    width: 200px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.editing-tools-container .btn-select {
-    height: 55px;
-    /* width: 55px; */
-    border-radius: 10px;
-    border: none;
+.tools-container .download-tools .modal a {
+    display: inline-block;
+    border: #6f7481 solid 1px;
     cursor: pointer;
-    grid-column: 1/span 3;
-    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    border-radius: 10px;
-    background-color: #ffffff;
-    background-color: #ffffff;
-    font-family: poppins;
     padding: 10px;
-}
-
-.editing-tools-container .txt-tools {
-    background-color: #19a59f;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 15px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr 1fr;
-}
-
-.editing-tools-container .txt-tools>* {
-    margin: 10px;
-}
-
-.editing-tools-container input[name="txt-input"] {
-    height: 45px;
-    border-radius: 30px;
-    background-color: #ebeef3;
-    border: none;
-    box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
-    margin: 10px;
 }
 
 
@@ -281,5 +282,118 @@ canvas {
 /* helpers */
 
 .hide {
-    display: none;
+    display: none !important;
+}
+
+
+/* SMALL */
+
+@media (max-width: 950px) {
+    nav {
+        position: sticky;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        height: 50px;
+        border-radius: 0px;
+        padding: 10px 15px;
+    }
+    nav .btn-hamburger {
+        display: inline-block;
+        padding-bottom: 35px;
+        height: 25px;
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        font-size: 2rem;
+        border: 0px;
+        z-index: 2;
+    }
+    nav .btn-hamburger img {
+        height: 25px;
+        z-index: 1;
+    }
+    nav ul {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+        opacity: 0.8;
+        min-width: 50%;
+        transform: translateX(100%);
+        margin: 0;
+        padding: 70px 10px 20px 10px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    nav ul.open-nav {
+        transition: 0.6s;
+        transform: translateX(0);
+    }
+    .container {
+        padding: 0px;
+    }
+    .meme-editor-container .canvas-container {
+        max-width: 50%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    /* tools-container */
+    .meme-editor-container .tools-container {
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 650px) {
+    html {
+        font-size: 14px;
+    }
+    .meme-editor-container {
+        flex-direction: column;
+    }
+    /* canvas */
+    .meme-editor-container .canvas-container {
+        height: 200px;
+        max-width: max-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* tools-container */
+    .meme-editor-container .tools-container {
+        align-self: stretch;
+        height: 250px;
+        margin: auto;
+    }
+    .meme-editor-container .tools-container .btn {
+        height: 30px;
+        width: 30px;
+        font-size: 2rem;
+    }
+    .meme-editor-container .tools-container .btn img {
+        height: 15px;
+        width: 15px;
+    }
+    .meme-editor-container .tools-container .btn.btn-change-line img {
+        margin: 0;
+    }
+    .tools-container input[name="txt-input"] {
+        height: 30px;
+        font-size: 1.5rem;
+    }
+    .tools-container .txt-tools {
+        height: 40%;
+        background-color: #19a59f;
+    }
+    .tools-container .txt-tools .btn-select {
+        height: 30px;
+        grid-column: 1/span 3;
+        font-size: 0.7rem;
+    }
+    .tools-container .download-tools form .btn {
+        font-size: 0.8rem;
+    }
 }

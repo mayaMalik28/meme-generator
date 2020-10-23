@@ -1,94 +1,63 @@
-.editing-tools-container .line-tools .btn-up {
+.tools-container .line-tools .btn-up {
     box-shadow: 1px 5px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ebeef3;
     background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }
 
-.editing-tools-container .line-tools .btn-up::before {
-    content: url(../imgs/up.svg);
-}
-
-.editing-tools-container .line-tools .btn-down {
+.tools-container .line-tools .btn-down {
     box-shadow: 1px 5px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ebeef3;
     background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }
 
-.editing-tools-container .line-tools .btn-down::before {
-    content: url(../imgs/down.svg);
-}
-
-.editing-tools-container .line-tools .btn-change-line {
+.tools-container .line-tools .btn-change-line {
     box-shadow: 1px 5px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ebeef3;
     background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }
 
-.editing-tools-container .line-tools .btn-change-line::before {
-    content: url(../imgs/up.svg);
-}
-
-.editing-tools-container .line-tools .btn-change-line::after {
-    content: url(../imgs/down.svg);
-}
-
-.editing-tools-container .line-tools .btn-add-line {
+.tools-container .line-tools .btn-add-line {
     box-shadow: 1px 5px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ebeef3;
     background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
+    text-shadow: 0px 3px #015d33;
+    font-size: 40px;
+    font-weight: bolder;
+    color: white;
 }
 
-.editing-tools-container .line-tools .btn-add-line::before {
-    /* content: url(../imgs/plus.svg); */
-    content: '+';
-}
-
-.editing-tools-container .line-tools .btn-remove-line {
+.tools-container .line-tools .btn-remove-line {
     box-shadow: 1px 5px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ebeef3;
     background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
 }
 
-.editing-tools-container .line-tools .btn-remove-line::before {
-    content: url(../imgs/trash.svg);
-}
-
-.editing-tools-container .txt-tools .btn {
+.tools-container .txt-tools .btn {
     box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ffffff;
     background-color: #ffffff;
 }
 
-.editing-tools-container .txt-tools .btn-increace-font::before {
-    content: url(../imgs/A+.png);
+.tools-container .download-tools .btn-share {
+    box-shadow: 1px 6px 0 #165c9c, inset 0 5px 0 #57b2e8;
+    border-radius: 15px;
+    background-color: #1e7cd3;
 }
 
-.editing-tools-container .txt-tools .btn-decreace-font::before {
-    content: url(../imgs/A-.png);
+.tools-container .download-tools .btn-download {
+    box-shadow: 1px 6px 0 #632687, inset 0 5px 0 #bf84da;
+    border-radius: 15px;
+    background-color: #8f44bb;
 }
 
-.editing-tools-container .txt-tools .btn-Align-left::before {
-    content: url(../imgs/align-left.png);
-}
-
-.editing-tools-container .txt-tools .btn-Align-center::before {
-    content: url(../imgs/align-center.png);
-}
-
-.editing-tools-container .txt-tools .btn-Align-right::before {
-    content: url(../imgs/align-right.svg);
-}
-
-.editing-tools-container .txt-tools .btn-stroke-color::before {
-    content: url(../imgs/s.png);
-}
-
-.editing-tools-container .txt-tools .btn-fill-color::before {
-    content: url(../imgs/color.png);
+@media (max-width: 950px) {
+    .tools-container>*>*::before {
+        font-size: x-small;
+    }
 }
