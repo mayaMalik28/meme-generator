@@ -2,11 +2,13 @@
 
 var gCanvas;
 var gCtx;
+var gIsMouseDown = false;
 
 function onInit() {
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
     renderImgs();
+    addDragAndDrop();
 }
 
 function onAddLine() {
@@ -22,7 +24,7 @@ function onRemoveLine() {
 }
 
 function onChangeLinePos(num) {
-    changeLinePos(num);
+    changeLinePos('y', num);
     drawCanvas()
 }
 
@@ -197,10 +199,44 @@ function doUploadImg(elForm, onSuccess) {
 }
 
 function canvasClicked(ev) {
-    console.log('canvas clicked event', ev);
+    // console.log('canvas clicked event', ev);
     // for me
 }
 
 function canvasMouseDown(ev) {
-    console.log(ev);
+    // console.log('canvas down event', ev);
+}
+
+function canvasMouseMove(ev) {
+    // console.log('canvas move event', ev);
+}
+
+function addDragAndDrop() {
+    var offsetX;
+    var offsetY;
+    var diffX;
+    var diffY;
+    gCanvas.addEventListener('mousedown', e => {
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+        gIsMouseDown = true;
+    });
+
+    gCanvas.addEventListener('mousemove', e => {
+        if (gIsMouseDown) {
+            diffX = offsetX - e.offsetX;
+            diffY = offsetY - e.offsetY;
+            changeLinePos('x', diffX);
+            changeLinePos('y', diffY);
+            offsetX = e.offsetX;
+            offsetY = e.offsetY;
+            drawCanvas();
+        }
+    });
+
+    gCanvas.addEventListener('mouseup', e => {
+        if (gIsMouseDown === true) {
+            gIsMouseDown = false;
+        }
+    });
 }

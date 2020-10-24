@@ -25,8 +25,8 @@ function changeTxtAlign(align) {
     getFocusedLine().textAlign = align;
 }
 
-function changeLinePos(num) {
-    getFocusedLine().pos.y += -num;
+function changeLinePos(axis = 'y', num) {
+    getFocusedLine().pos[axis] += -num;
 }
 
 function getLines() {
