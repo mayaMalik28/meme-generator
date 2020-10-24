@@ -9,6 +9,7 @@ function onInit() {
     gCtx = gCanvas.getContext('2d');
     renderImgs();
     addDragAndDrop();
+    // hammerExample();
 }
 
 function onAddLine() {
@@ -198,43 +199,59 @@ function doUploadImg(elForm, onSuccess) {
         })
 }
 
-function canvasClicked(ev) {
-    // console.log('canvas clicked event', ev);
-    // for me
-}
-
-function canvasMouseDown(ev) {
-    // console.log('canvas down event', ev);
-}
-
-function canvasMouseMove(ev) {
-    // console.log('canvas move event', ev);
-}
-
 function addDragAndDrop() {
     var offsetX;
     var offsetY;
     var diffX;
     var diffY;
-    gCanvas.addEventListener('mousedown', e => {
-        offsetX = e.offsetX;
-        offsetY = e.offsetY;
+    var clientX;
+    var clientY;
+
+    gCanvas.addEventListener('mousedown', ev => {
+        offsetX = ev.offsetX;
+        offsetY = ev.offsetY;
         gIsMouseDown = true;
     });
 
-    gCanvas.addEventListener('mousemove', e => {
+    gCanvas.addEventListener('mousemove', ev => {
         if (gIsMouseDown) {
-            diffX = offsetX - e.offsetX;
-            diffY = offsetY - e.offsetY;
+            diffX = offsetX - ev.offsetX;
+            diffY = offsetY - ev.offsetY;
             changeLinePos('x', diffX);
             changeLinePos('y', diffY);
-            offsetX = e.offsetX;
-            offsetY = e.offsetY;
+            offsetX = ev.offsetX;
+            offsetY = ev.offsetY;
             drawCanvas();
         }
     });
 
-    gCanvas.addEventListener('mouseup', e => {
+    gCanvas.addEventListener('mouseup', ev => {
+        if (gIsMouseDown === true) {
+            gIsMouseDown = false;
+        }
+    });
+    gCanvas.addEventListener('touchstart', ev => {
+        clientX = ev.targetTouches[0].clientX;
+        clientY = ev.targetTouches[0].clientY;
+        gIsMouseDown = true;
+    });
+
+    gCanvas.addEventListener('touchmove', ev => {
+        ev.preventDefault();
+        if (gIsMouseDown) {
+            diffX = clientX - ev.targetTouches[0].clientX;
+            diffY = clientY - ev.targetTouches[0].clientY;
+            console.log('diffX', diffX);
+            console.log('diffY', diffY);
+            changeLinePos('x', diffX);
+            changeLinePos('y', diffY);
+            clientX = ev.targetTouches[0].clientX;
+            clientY = ev.targetTouches[0].clientY;
+            drawCanvas();
+        }
+    });
+
+    gCanvas.addEventListener('touchend', ev => {
         if (gIsMouseDown === true) {
             gIsMouseDown = false;
         }

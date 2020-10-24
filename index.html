@@ -14,7 +14,7 @@
         <nav>
             <div class="logo">LOGO</div>
             <ul nav>
-                <li class="go-to-gallery-container">
+                <li class="go-to-gallery-container active">
                     <a onclick="hideContainersExcept('gallery-container')">Gallery</a>
                 </li>
                 <li class="go-to-memes-container">
@@ -34,7 +34,7 @@
 
             <div class="meme-editor-container hide">
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="700" width="700" onclick="canvasClicked(event)" onmousedown="canvasMouseDown(event)" onmousemove="canvasMouseMove(event)"></canvas>
+                    <canvas id="my-canvas" height="700" width="700"></canvas>
                 </div>
                 <div class="tools-container">
                     <input onkeyup="onAddTxt()" name="txt-input" type="text">
@@ -84,7 +84,6 @@
                 search your Img...
             </div> -->
                 <div class="img-container">
-                    <!-- <img src="./meme-imgs/10.jpg" alt=""> -->
                 </div>
             </div>
         </div>
@@ -98,8 +97,8 @@
         </div>
     </div>
 
-    <script src="js/controller.js"></script>
-    <script src="js/meme-services.js"></script>
+    <script src="./js/controller.js"></script>
+    <script src="./js/meme-services.js"></script>
 </body>
 
 </html>

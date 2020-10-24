@@ -69,9 +69,6 @@ select {
 }
 
 
-/* .page-container.gallery-container.gallery {} */
-
-
 /* imgs-Layout */
 
 .img-container {
@@ -206,7 +203,7 @@ canvas {
 .meme-editor-container .tools-container .line-tools {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .tools-container .txt-tools {
@@ -230,12 +227,14 @@ canvas {
     height: 55px;
     grid-column: 1/span 3;
     justify-self: stretch;
-    font-family: poppins;
     box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ffffff;
     padding: 10px;
     cursor: pointer;
+    font-family: poppins;
+    text-transform: uppercase;
+    font-size: 1.3rem;
 }
 
 .meme-editor-container .tools-container .download-tools form {
@@ -265,8 +264,6 @@ canvas {
     position: fixed;
     top: 40%;
     right: 40%;
-    /* background-color: #d9dce6;
-    border: #6f7481 solid 1px; */
     background-color: #ebeef3;
     box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
     border-radius: 30px;
@@ -389,10 +386,6 @@ canvas {
         height: fit-content;
         min-height: 100vh;
     }
-    /* .page-container.gallery-container.editor {
-        height: fit-content;
-        min-height: 100vh;
-    } */
     .meme-editor-container {
         flex-direction: column;
     }
