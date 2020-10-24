@@ -26,7 +26,9 @@ function changeTxtAlign(align) {
 }
 
 function changeLinePos(axis = 'y', num) {
-    getFocusedLine().pos[axis] += -num;
+    const newPos = getFocusedLine().pos[axis] + num
+    if (newPos < 0 || newPos > gMeme.canvasSize) return;
+    getFocusedLine().pos[axis] = newPos;
 }
 
 function getLines() {
@@ -47,13 +49,10 @@ function addLine() {
     _createLine();
     changeFocusedLine();
     if (gMeme.selectedLineIdx < 2) {
-        gMeme.lines[gMeme.selectedLineIdx].pos.y = gMeme.canvasSize;
-        gMeme.lines[gMeme.selectedLineIdx].textBaseline = 'bottom'
+        gMeme.lines[gMeme.selectedLineIdx].pos.y = gMeme.canvasSize - gMeme.lines[gMeme.selectedLineIdx].size / 2;
         return;
     }
     gMeme.lines[gMeme.selectedLineIdx].pos.y = gMeme.canvasSize / 2;
-    gMeme.lines[gMeme.selectedLineIdx].textBaseline = 'center'
-        // TODO - think if thןs function can be more efficient
 }
 
 function removeLine() {
@@ -89,15 +88,13 @@ function _createLine() {
         size: gMeme.canvasSize * 0.15,
         family: 'Impact',
         textAlign: 'center',
-        textBaseline: 'top',
         lineWidth: gMeme.canvasSize * 0.008,
         strokeColor: 'black',
         fillColor: 'white',
         pos: {
             x: gMeme.canvasSize / 2,
-            y: 0,
+            y: gMeme.canvasSize * 0.15,
         },
-
     }
     gMeme.lines.push(line)
 }

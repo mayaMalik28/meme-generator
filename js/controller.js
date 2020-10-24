@@ -9,7 +9,6 @@ function onInit() {
     gCtx = gCanvas.getContext('2d');
     renderImgs();
     addDragAndDrop();
-    // hammerExample();
 }
 
 function onAddLine() {
@@ -215,8 +214,8 @@ function addDragAndDrop() {
 
     gCanvas.addEventListener('mousemove', ev => {
         if (gIsMouseDown) {
-            diffX = offsetX - ev.offsetX;
-            diffY = offsetY - ev.offsetY;
+            diffX = ev.offsetX - offsetX;
+            diffY = ev.offsetY - offsetY;
             changeLinePos('x', diffX);
             changeLinePos('y', diffY);
             offsetX = ev.offsetX;
@@ -237,10 +236,11 @@ function addDragAndDrop() {
     });
 
     gCanvas.addEventListener('touchmove', ev => {
+        console.log(ev);
         ev.preventDefault();
         if (gIsMouseDown) {
-            diffX = clientX - ev.targetTouches[0].clientX;
-            diffY = clientY - ev.targetTouches[0].clientY;
+            diffX = ev.targetTouches[0].clientX - clientX;
+            diffY = ev.targetTouches[0].clientY - clientY;
             console.log('diffX', diffX);
             console.log('diffY', diffY);
             changeLinePos('x', diffX);
