@@ -50,6 +50,7 @@ function getFocusedLine() {
 }
 
 function addLine() {
+    if (gMeme.lines[gMeme.selectedLineIdx].txt === '') return;
     _createLine();
     gMeme.selectedLineIdx = gMeme.lines.length - 1
     if (gMeme.selectedLineIdx < 2) {
@@ -69,7 +70,6 @@ function removeLine() {
 }
 
 function getCurrImg() {
-    console.log(gMeme.selectedImgId);
     return getImgById(gMeme.selectedImgId);
 }
 

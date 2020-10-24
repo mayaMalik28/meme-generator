@@ -13,10 +13,9 @@ function onInit() {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
-    const canvasSize = (elContainer.offsetWidth > elContainer.offsetHeight) ? elContainer.offsetHeight * 0.9 : elContainer.offsetWidth * 0.9;
-    gCanvas.width = canvasSize; // show width & height in CSS
+    const canvasSize = (elContainer.offsetWidth > elContainer.offsetHeight) ? (elContainer.offsetHeight) : (elContainer.offsetWidth);
+    gCanvas.width = canvasSize;
     gCanvas.height = canvasSize;
-    console.log(canvasSize);
     setCanvasSize(canvasSize);
     // drawImg();
 }
@@ -81,15 +80,7 @@ function canvasClicked(ev) {
     // for me
 }
 
-function downloadCanvas(elLink) {
-    const data = gCanvas.toDataURL()
-    elLink.href = data
-}
 
-function ShareCanvas(el) {
-    console.log('sharing');
-    // TODO: add share option
-}
 
 function drawTxt() {
     const lines = getLines();
@@ -143,25 +134,23 @@ function onGalleryClicked() {
     document.querySelector('.gallery-container').classList.add('gallery');
 }
 
+function downloadCanvas(elLink) {
+    const data = gCanvas.toDataURL()
+    elLink.href = data
+}
 
-// function getCanvasXCenter() {
-//     // console.log(gCanvas.width);
-//     return (gCanvas.width / 2);
-// }
-
-function renderShare(elForm, ev) {
+function uploadImg(elForm, ev) {
     ev.preventDefault();
     document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
 
-    // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').classList.remove('hide');
         document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+        <a class="btn btn-share" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
            Share   
         </a>
-        <a class="btn" onclick="closeModal()">close</a>`
+        <a class="btn btn-close-modal" onclick="closeModal()">close</a>`
     }
 
     doUploadImg(elForm, onSuccess);
@@ -169,8 +158,6 @@ function renderShare(elForm, ev) {
 
 function doUploadImg(elForm, onSuccess) {
     var formData = new FormData(elForm);
-    console.log(formData);
-    console.log(elForm);
     fetch('http://ca-upload.com/here/upload.php', {
             method: 'POST',
             body: formData
@@ -184,6 +171,7 @@ function doUploadImg(elForm, onSuccess) {
         })
 }
 
+
 function closeModal() {
     console.log('closing');
     console.log(document.querySelector('.share-container'));
@@ -194,6 +182,5 @@ function closeModal() {
 function toggleNav() {
     document.querySelector('nav ul').classList.toggle('open-nav');
     const elBtns = document.querySelectorAll('.btn-hamburger img');
-    console.log(elBtns);
     elBtns.forEach(btn => btn.classList.toggle('hide'));
 }
