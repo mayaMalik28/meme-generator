@@ -6,35 +6,24 @@ var gCtx;
 function onInit() {
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
-    gCtx.fillStyle = 'white'
-    gCtx.strokeStyle = 'black'
     renderImgs();
-}
-
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container');
-    const canvasSize = (elContainer.offsetWidth > elContainer.offsetHeight) ? (elContainer.offsetHeight) : (elContainer.offsetWidth);
-    gCanvas.width = canvasSize;
-    gCanvas.height = canvasSize;
-    setCanvasSize(canvasSize);
-    // drawImg();
 }
 
 function onAddLine() {
     document.querySelector('input[name=txt-input]').value = ''
     addLine();
-    drawImg();
+    drawCanvas();
 }
 
 function onRemoveLine() {
     document.querySelector('input[name=txt-input]').value = ''
     removeLine();
-    drawImg();
+    drawCanvas();
 }
 
 function onChangeLinePos(num) {
     changeLinePos(num);
-    drawImg()
+    drawCanvas()
 }
 
 function onChangeFocusedLine() {
@@ -43,60 +32,53 @@ function onChangeFocusedLine() {
     document.querySelector('input[name=txt-input]').value = line.txt;
 }
 
-function onAddTxt(ev) {
+function onAddTxt() {
     const txt = document.querySelector('input[name=txt-input]').value
     addTxt(txt);
-    drawImg();
+    drawCanvas();
 }
 
 function onChangeStrokeColor(elColor) {
     changeStrokeColor(elColor.value);
-    drawImg();
+    drawCanvas();
     // TODO: chack if I can do those func together
 }
 
 function onChangeFillColor(elColor) {
     changeFillColor(elColor.value);
-    drawImg();
+    drawCanvas();
 }
 
 function onChangeFontSize(num) {
     changeFontSize(num);
-    drawImg()
+    drawCanvas()
 }
 
 function onChangeFontFamily(elSelect) {
     changeFontFamily(elSelect.value);
-    drawImg();
+    drawCanvas();
 }
 
 function onChangeTxtAlign(align) {
     changeTxtAlign(align);
-    drawImg();
+    drawCanvas();
 }
-
-function canvasClicked(ev) {
-    console.log('canvas clicked event', ev);
-    // for me
-}
-
-
 
 function drawTxt() {
     const lines = getLines();
     lines.forEach(function(line) {
-        gCtx.font = `${line.font.size}px ${line.font.family}`;
-        gCtx.lineWidth = line.features.lineWidth
-        gCtx.textAlign = line.features.textAlign
-        gCtx.textBaseline = line.features.textBaseline;
-        gCtx.strokeStyle = line.features.strokeColor
-        gCtx.fillStyle = line.features.fillColor
+        gCtx.font = `${line.size}px ${line.family}`;
+        gCtx.lineWidth = line.lineWidth;
+        gCtx.textAlign = line.textAlign;
+        gCtx.textBaseline = line.textBaseline;
+        gCtx.strokeStyle = line.strokeColor
+        gCtx.fillStyle = line.fillColor
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
         gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
     });
 }
 
-function drawImg() {
+function drawCanvas() {
     const img = getCurrImg();
     var elImg = new Image();
     elImg.src = img.url;
@@ -104,34 +86,77 @@ function drawImg() {
         gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
         drawTxt();
     }
+}
 
+function closeModal() {
+    console.log('closing');
+    console.log(document.querySelector('.share-container'));
+    document.querySelector('.share-container').classList.add('hide');
+}
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container');
+    const canvasSize = (elContainer.offsetWidth > elContainer.offsetHeight) ? (elContainer.offsetHeight) : (elContainer.offsetWidth);
+    gCanvas.width = canvasSize;
+    gCanvas.height = canvasSize;
+}
+
+function onImgClicked(id) {
+    document.querySelector('input[name=txt-input]').value = ''
+    document.querySelector('.img-gallery').classList.add('hide');
+    document.querySelector('.meme-editor-container').classList.remove('hide');
+    document.querySelector('.general-container').classList.add('screen-size');
+    document.querySelector('.general-container').classList.remove('content-size');
+    resizeCanvas();
+    createMeme(gCanvas.width, id);
+    drawCanvas();
 }
 
 function renderImgs() {
     const imgs = getImgs();
     var strHTML = imgs.reduce(function(str, img) {
-        return str + `<img src="${img.url}" onclick="imgClicked(${img.id})" alt="">`
+        return str + `<img src="${img.url}" onclick="onImgClicked(${img.id})" alt="">`
     }, '')
     document.querySelector('.img-container').innerHTML = strHTML;
 
 }
 
-function imgClicked(id) {
-    document.querySelector('.img-gallery').classList.add('hide');
-    document.querySelector('.meme-editor-container').classList.remove('hide');
-    document.querySelector('.gallery-container').classList.add('editor');
-    document.querySelector('.gallery-container').classList.remove('gallery');
-    createMeme();
-    setMemeImg(id);
-    resizeCanvas();
-    drawImg();
+function toggleNav() {
+    document.querySelector('nav ul').classList.toggle('open-nav');
+    const elBtns = document.querySelectorAll('.btn-hamburger img');
+    elBtns.forEach(btn => btn.classList.toggle('hide'));
+}
+
+function hideContainersExcept(page) {
+    var elContainers = document.querySelectorAll('.page-container');
+    elContainers.forEach(function(elContainer) {
+        if (elContainer.classList.contains(page)) {
+            elContainer.classList.remove('hide');
+            showActive(page);
+        } else {
+            elContainer.classList.add('hide');
+        }
+        if (elContainer.classList.contains('gallery-container')) onGalleryClicked();
+    });
+}
+
+function showActive(page) {
+    var elLis = document.querySelectorAll('nav ul li');
+    console.log(elLis);
+    elLis.forEach(function(elLi) {
+        if (elLi.classList.contains(`go-to-${page}`)) {
+            elLi.classList.add('active');
+        } else {
+            elLi.classList.remove('active');
+        }
+    });
 }
 
 function onGalleryClicked() {
     document.querySelector('.img-gallery').classList.remove('hide');
     document.querySelector('.meme-editor-container').classList.add('hide');
-    document.querySelector('.gallery-container').classList.remove('editor');
-    document.querySelector('.gallery-container').classList.add('gallery');
+    document.querySelector('.general-container').classList.remove('screen-size');
+    document.querySelector('.general-container').classList.add('content-size');
 }
 
 function downloadCanvas(elLink) {
@@ -171,16 +196,11 @@ function doUploadImg(elForm, onSuccess) {
         })
 }
 
-
-function closeModal() {
-    console.log('closing');
-    console.log(document.querySelector('.share-container'));
-    document.querySelector('.share-container').classList.add('hide');
+function canvasClicked(ev) {
+    console.log('canvas clicked event', ev);
+    // for me
 }
 
-
-function toggleNav() {
-    document.querySelector('nav ul').classList.toggle('open-nav');
-    const elBtns = document.querySelectorAll('.btn-hamburger img');
-    elBtns.forEach(btn => btn.classList.toggle('hide'));
+function canvasMouseDown(ev) {
+    console.log(ev);
 }

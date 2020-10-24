@@ -6,43 +6,36 @@ var gMeme;
 createImgs();
 
 function changeFontFamily(font) {
-    // TODO: maybe use get focused line?
-    const line = gMeme.lines[gMeme.selectedLineIdx];
-    line.font.family = font;
-    // for later
+    getFocusedLine().family = font;
 }
 
 function changeFontSize(num) {
-    // TODO: maybe use get focused line?
-    const line = gMeme.lines[gMeme.selectedLineIdx];
-    line.font.size += num;
+    getFocusedLine().size += num;
 }
 
 function changeStrokeColor(color) {
-    getFocusedLine().features.strokeColor = color;
+    getFocusedLine().strokeColor = color;
 }
 
 function changeFillColor(color) {
-    getFocusedLine().features.fillColor = color;
+    getFocusedLine().fillColor = color;
 }
 
 function changeTxtAlign(align) {
-    getFocusedLine().features.textAlign = align;
+    getFocusedLine().textAlign = align;
 }
 
 function changeLinePos(num) {
-    // TODO: maybe use get focused line?
-    const line = gMeme.lines[gMeme.selectedLineIdx];
-    line.pos.y += -num;
+    getFocusedLine().pos.y += -num;
+}
+
+function getLines() {
+    return gMeme.lines;
 }
 
 function changeFocusedLine() {
     gMeme.selectedLineIdx = (gMeme.selectedLineIdx < gMeme.lines.length - 1) ? gMeme.selectedLineIdx + 1 : 0
         // TODO: get a marker in the current line
-}
-
-function getLines() {
-    return gMeme.lines;
 }
 
 function getFocusedLine() {
@@ -52,16 +45,15 @@ function getFocusedLine() {
 function addLine() {
     if (gMeme.lines[gMeme.selectedLineIdx].txt === '') return;
     _createLine();
-    gMeme.selectedLineIdx = gMeme.lines.length - 1
+    changeFocusedLine();
     if (gMeme.selectedLineIdx < 2) {
         gMeme.lines[gMeme.selectedLineIdx].pos.y = gMeme.canvasSize;
-        gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'bottom'
+        gMeme.lines[gMeme.selectedLineIdx].textBaseline = 'bottom'
         return;
     }
     gMeme.lines[gMeme.selectedLineIdx].pos.y = gMeme.canvasSize / 2;
-    gMeme.lines[gMeme.selectedLineIdx].features.textBaseline = 'center'
-        //TODO - get canvas size
-        // TODO - think if thoos function can be more efficient
+    gMeme.lines[gMeme.selectedLineIdx].textBaseline = 'center'
+        // TODO - think if thןs function can be more efficient
 }
 
 function removeLine() {
@@ -69,44 +61,20 @@ function removeLine() {
     changeFocusedLine();
 }
 
-function getCurrImg() {
-    return getImgById(gMeme.selectedImgId);
-}
-
-function setCanvasSize(size) {
-    gMeme.canvasSize = size;
-    gMeme.lines[0].pos.x = size / 2;
-    // TODO: find better solution
-}
-
-function setMemeImg(id) {
-    gMeme.selectedImgId = id
-}
-
 function addTxt(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt;
 }
 
-function getTxt() {
-    const txt = gMeme.lines[gMeme.selectedLineIdx].txt;
-    console.log(txt);
-    return txt
-}
-
-function getImgs() {
-    return gImgs;
-}
-
-function getImgById(ImgId) {
+function getCurrImg() {
     var img = gImgs.find(function(img) {
-        return (img.id === ImgId);
+        return (img.id === gMeme.selectedImgId);
     })
     return img;
 }
 
-function createMeme(selectedImgId = 1) {
+function createMeme(canvasSize = 500, selectedImgId = 1) {
     const meme = {
-        canvasSize: 450,
+        canvasSize,
         selectedImgId,
         selectedLineIdx: 0,
         lines: []
@@ -118,23 +86,24 @@ function createMeme(selectedImgId = 1) {
 function _createLine() {
     const line = {
         txt: '',
-        font: {
-            size: 48,
-            family: 'Impact',
-        },
+        size: gMeme.canvasSize * 0.15,
+        family: 'Impact',
+        textAlign: 'center',
+        textBaseline: 'top',
+        lineWidth: gMeme.canvasSize * 0.008,
+        strokeColor: 'black',
+        fillColor: 'white',
         pos: {
             x: gMeme.canvasSize / 2,
             y: 0,
         },
-        features: {
-            textAlign: 'center',
-            textBaseline: 'top',
-            lineWidth: '2',
-            strokeColor: 'black',
-            fillColor: 'white'
-        }
+
     }
     gMeme.lines.push(line)
+}
+
+function getImgs() {
+    return gImgs;
 }
 
 function createImgs() {

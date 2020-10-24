@@ -16,6 +16,7 @@
 
 html {
     font-family: poppins, sans-serif;
+    color: white;
 }
 
 body {
@@ -43,20 +44,32 @@ select {
 
 /* Layout */
 
-.container {
+.general-container {
     background-color: #22252c;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    padding: 15px;
 }
 
-.container.gallery-container.editor {
+.screen-size {
     height: 100vh;
 }
 
-.container.gallery-container.gallery {
+.content-size {
     min-height: 100vh;
 }
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-container.gallery-container {
+    height: 100%;
+}
+
+
+/* .page-container.gallery-container.gallery {} */
 
 
 /* imgs-Layout */
@@ -95,6 +108,10 @@ nav ul li {
     cursor: pointer;
 }
 
+nav ul li a {
+    display: block;
+}
+
 nav ul li:hover {
     font-weight: bold;
 }
@@ -120,6 +137,7 @@ nav .btn-hamburger {
 .meme-editor-container {
     flex-grow: 1;
     display: flex;
+    justify-content: center;
 }
 
 .meme-editor-container>* {
@@ -138,7 +156,9 @@ canvas {
 
 .meme-editor-container .canvas-container {
     flex-grow: 1;
-    margin: 10px 40px 0px 40px;
+    max-height: 90%;
+    max-width: 50%;
+    margin: auto 40px;
 }
 
 
@@ -347,7 +367,7 @@ canvas {
         transition: 0.6s;
         transform: translateX(0);
     }
-    .container {
+    .general-container {
         padding: 0px;
     }
     .meme-editor-container .canvas-container {
@@ -365,10 +385,14 @@ canvas {
     html {
         font-size: 14px;
     }
-    .container.gallery-container.editor {
+    .general-container.screen-size {
         height: fit-content;
         min-height: 100vh;
     }
+    /* .page-container.gallery-container.editor {
+        height: fit-content;
+        min-height: 100vh;
+    } */
     .meme-editor-container {
         flex-direction: column;
     }
@@ -415,11 +439,5 @@ canvas {
     }
     .tools-container .download-tools form .btn {
         font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 400px) {
-    .img-gallery img {
-        width: 90%
     }
 }

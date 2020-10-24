@@ -10,46 +10,49 @@
 </head>
 
 <body onload="onInit()">
-    <div class="container gallery-container gallery">
+    <div class="general-container content-size">
         <nav>
             <div class="logo">LOGO</div>
             <ul nav>
-                <li class="active" onclick="onGalleryClicked()">
-                    <a href="">Gallery</a>
+                <li class="go-to-gallery-container">
+                    <a onclick="hideContainersExcept('gallery-container')">Gallery</a>
                 </li>
-                <li>
-                    <a href="">Memes</a>
+                <li class="go-to-memes-container">
+                    <a onclick="hideContainersExcept('memes-container')">Memes</a>
                 </li>
-                <li>
-                    <a href="">About</a>
+                <li class="go-to-about-container">
+                    <a onclick="hideContainersExcept('about-container')">About</a>
                 </li>
             </ul>
             <button class="btn btn-hamburger" onclick="toggleNav()">
-                <img src="./imgs/Hamburger.png" alt="">
-                <img class="hide" src="./imgs/close.png" alt="">
-            </button>
+            <img src="./imgs/Hamburger.png" alt="">
+            <img class="hide" src="./imgs/close.png" alt="">
+        </button>
         </nav>
-        <div class="meme-editor-container hide">
-            <div class="canvas-container">
-                <canvas id="my-canvas" height="450" width="450" onclick="canvasClicked(event)"></canvas>
-            </div>
-            <div class="tools-container">
-                <input onkeyup="onAddTxt(event)" name="txt-input" type="text">
-                <div class="line-tools">
-                    <button class="btn btn-up" onclick="onChangeLinePos(2)"><img src="./imgs/up.svg" alt=""></button>
-                    <button class="btn btn-down" onclick="onChangeLinePos(-2)"><img src="./imgs/down.svg" alt=""></button>
-                    <button class="btn btn-change-line" onclick="onChangeFocusedLine()"><img src="./imgs/up.svg" alt=""><img src="./imgs/down.svg" alt=""></button>
-                    <button class="btn btn-add-line" onclick="onAddLine()">+</button>
-                    <button class="btn btn-remove-line" onclick="onRemoveLine()"><img src="./imgs/trash.svg" alt=""></button>
+        <a name="gallery"></a>
+        <div class="page-container gallery-container">
+
+            <div class="meme-editor-container hide">
+                <div class="canvas-container">
+                    <canvas id="my-canvas" height="700" width="700" onclick="canvasClicked(event)" onmousedown="canvasMouseDown(event)"></canvas>
                 </div>
-                <div class="txt-tools">
-                    <button class="btn btn-increace-font" onclick="onChangeFontSize(2)"><img src="./imgs/A+.png" alt=""></button>
-                    <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)"><img src="./imgs/A-.png" alt=""></button>
-                    <button class="btn btn-Align-left" onclick="onChangeTxtAlign('end')"><img src="./imgs/align-left.png" alt=""></button>
-                    <button class="btn btn-Align-center" onclick="onChangeTxtAlign('center')"><img src="./imgs/align-center.png" alt=""></button>
-                    <button class="btn btn-Align-right" onclick="onChangeTxtAlign('start')"><img src="./imgs/align-right.svg" alt=""></button>
-                    <!-- <label class="btn-select" for="select-font"></label> -->
-                    <select class="btn-select" onchange="onChangeFontFamily(this)" id="select-font">
+                <div class="tools-container">
+                    <input onkeyup="onAddTxt()" name="txt-input" type="text">
+                    <div class="line-tools">
+                        <button class="btn btn-up" onclick="onChangeLinePos(2)"><img src="./imgs/up.svg" alt=""></button>
+                        <button class="btn btn-down" onclick="onChangeLinePos(-2)"><img src="./imgs/down.svg" alt=""></button>
+                        <button class="btn btn-change-line" onclick="onChangeFocusedLine()"><img src="./imgs/up.svg" alt=""><img src="./imgs/down.svg" alt=""></button>
+                        <button class="btn btn-add-line" onclick="onAddLine()">+</button>
+                        <button class="btn btn-remove-line" onclick="onRemoveLine()"><img src="./imgs/trash.svg" alt=""></button>
+                    </div>
+                    <div class="txt-tools">
+                        <button class="btn btn-increace-font" onclick="onChangeFontSize(2)"><img src="./imgs/A+.png" alt=""></button>
+                        <button class="btn btn-decreace-font" onclick="onChangeFontSize(-2)"><img src="./imgs/A-.png" alt=""></button>
+                        <button class="btn btn-Align-left" onclick="onChangeTxtAlign('end')"><img src="./imgs/align-left.png" alt=""></button>
+                        <button class="btn btn-Align-center" onclick="onChangeTxtAlign('center')"><img src="./imgs/align-center.png" alt=""></button>
+                        <button class="btn btn-Align-right" onclick="onChangeTxtAlign('start')"><img src="./imgs/align-right.svg" alt=""></button>
+                        <!-- <label class="btn-select" for="select-font"></label> -->
+                        <select class="btn-select" onchange="onChangeFontFamily(this)" id="select-font">
                         <option value="Impact">Impact</option>
                         <option value="Arial">Arial</option>
                         <option value="Verdana">Verdana</option>
@@ -58,39 +61,43 @@
                         <option value="serif">serif</option>
                         <option value="sans-serif">sans-serif</option>
                     </select>
-                    <label class="btn btn-stroke-color" for="Stroke-color-input"><img src="./imgs/s.png" alt=""></label>
-                    <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input" hidden>
-                    <label class="btn btn-fill-color" for="fill-color-input"><img src="./imgs/color.png" alt=""></label>
-                    <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input" hidden>
-                </div>
-                <!-- <div class="sticker-tools">
+                        <label class="btn btn-stroke-color" for="Stroke-color-input"><img src="./imgs/s.png" alt=""></label>
+                        <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input" hidden>
+                        <label class="btn btn-fill-color" for="fill-color-input"><img src="./imgs/color.png" alt=""></label>
+                        <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input" hidden>
+                    </div>
+                    <!-- <div class="sticker-tools">
                     stickers
                 </div> -->
-                <div class="download-tools">
-                    <form action="" method="POST" onsubmit="uploadImg(this, event)" enctype="multipart/form-data" onload="uploadImg(this, event)">
-                        <input name="img" id="imgData" type="hidden" />
-                        <button type="submit" class="btn-share btn"><img src="./imgs/share.svg" alt="">Share</button>
-                        <a href="#" class="btn-download btn" onclick="downloadCanvas(this)" download="my-img.jpg"><img src="./imgs/download.svg" alt=""> Download</a>
-                    </form>
-                    <div class="share-container modal hide"></div>
-                    <!-- <a href="#" class="btn" onclick="ShareCanvas(this)" download="my-img.jpg">Share </a>
-                    <a href="#" class="btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download as jpeg</a> -->
+                    <div class="download-tools">
+                        <form action="" method="POST" onsubmit="uploadImg(this, event)" enctype="multipart/form-data" onload="uploadImg(this, event)">
+                            <input name="img" id="imgData" type="hidden" />
+                            <button type="submit" class="btn-share btn"><img src="./imgs/share.svg" alt="">Share</button>
+                            <a href="#" class="btn-download btn" onclick="downloadCanvas(this)" download="my-img.jpg"><img src="./imgs/download.svg" alt=""> Download</a>
+                        </form>
+                        <div class="share-container modal hide"></div>
+                    </div>
                 </div>
-                <!-- </form> -->
+            </div>
+            <div class="img-gallery">
+                <!-- <div class="search">
+                search your Img...
+            </div> -->
+                <div class="img-container">
+                    <!-- <img src="./meme-imgs/10.jpg" alt=""> -->
+                </div>
             </div>
         </div>
-        <div class="img-gallery">
-            <div class="search">
-                search your Img...
-            </div>
-            <div class="img-container">
-                <!-- <img src="./meme-imgs/10.jpg" alt=""> -->
-            </div>
+        <a name="memes"></a>
+        <div class="page-container memes-container hide">
+            memes
+        </div>
+        <a name="about"></a>
+        <div class="page-container about-container hide">
+            about
         </div>
     </div>
 
-
-    <script src="js/utils.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/meme-services.js"></script>
 </body>
