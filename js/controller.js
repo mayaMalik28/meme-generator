@@ -98,6 +98,7 @@ function drawCanvas() {
 }
 
 function resizeCanvas() {
+    console.log('resize');
     const elContainer = document.querySelector('.canvas-container');
     const canvasSize = (elContainer.offsetWidth > elContainer.offsetHeight) ? (elContainer.offsetHeight) : (elContainer.offsetWidth);
     console.log(canvasSize);

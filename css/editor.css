@@ -151,42 +151,13 @@ canvas {
     margin-right: 10px;
 }
 
-
-/* modal */
-
-.modal {
-    position: absolute;
-    top: 40%;
-    background-color: #f8f8f8;
-    border-radius: 30px;
-    width: fit-content;
-    height: fit-content;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal a {
-    height: 30px;
-    margin: 5px;
-    padding: 7px;
-    border-radius: 15px;
-    display: inline-block;
-    cursor: pointer;
-    padding: 10px 20px;
-    height: fit-content;
-    width: fit-content;
-    border-radius: 20px;
-}
-
-.modal a.btn-share {
-    background-color: #1e7cd3;
-}
-
-.modal a.btn-close-modal {
-    background-color: #ebeef3;
-    color: rgb(51, 51, 51);
+@media (max-width: 950px) {
+    /* tools-container */
+    /* .meme-editor-container .tools-container {
+        align-self: stretch;
+        max-width: 90%;
+        margin: 5px auto;
+    } */
 }
 
 @media (max-width: 950px) {
@@ -199,21 +170,8 @@ canvas {
     }
     .meme-editor-container .canvas-container {
         margin: 10px auto;
-        height: fit-content;
         max-width: fit-content;
         max-height: 250px;
-    }
-    /* tools-container */
-    .meme-editor-container .tools-container {
-        align-self: stretch;
-        max-width: 90%;
-        margin: 5px auto;
-    }
-}
-
-@media (max-width: 450px) {
-    .meme-editor-container .canvas-container {
-        max-height: 200px;
     }
     /* tools-container */
     .meme-editor-container .tools-container {
@@ -222,10 +180,15 @@ canvas {
         max-width: 90%;
         margin: 5px auto;
     }
-    .meme-editor-container .tools-container .btn {
-        height: 45px;
-        width: 45px;
-        font-size: 2rem;
+    .meme-editor-container .tools-container .line-tools .btn,
+    .meme-editor-container .tools-container .txt-tools .btn {
+        height: 40px;
+        width: 40px;
+        font-size: 1.2rem;
+    }
+    .meme-editor-container .tools-container .download-tools .btn {
+        height: 40px;
+        font-size: 0.8rem;
     }
     .meme-editor-container .tools-container .btn img {
         height: 15px;
@@ -235,7 +198,7 @@ canvas {
         margin: 0;
     }
     .tools-container input[name="txt-input"] {
-        height: 45px;
+        height: 40px;
         font-size: 1.5rem;
     }
     .tools-container .txt-tools {
@@ -247,7 +210,7 @@ canvas {
         margin-right: 2px;
     }
     .tools-container .txt-tools .btn-select {
-        height: 45px;
+        height: 40px;
         font-size: 0.7rem;
     }
     .tools-container .download-tools form .btn {
@@ -255,5 +218,8 @@ canvas {
     }
     .tools-container .download-tools form .btn img {
         margin-right: 5px;
+    }
+    .tools-container .download-tools .btn-save {
+        margin: 5px 0 5px 0;
     }
 }
