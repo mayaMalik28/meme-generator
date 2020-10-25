@@ -1,0 +1,28 @@
+.page-container.gallery-container {
+    height: 100%;
+}
+
+
+/* imgs-Layout */
+
+.img-container {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+/* imgs */
+
+.img-gallery img {
+    width: 200px;
+    border-radius: 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.img-gallery img:hover {
+    filter: none;
+}

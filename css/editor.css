@@ -1,0 +1,259 @@
+/* editor-Layout */
+
+.meme-editor-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    max-width: 1200px;
+    max-height: 700px;
+}
+
+.meme-editor-container>* {
+    display: flex;
+}
+
+
+/* canvas */
+
+.meme-editor-container .canvas-container {
+    flex-grow: 1;
+    /* height: 90%; */
+    max-height: 600px;
+    max-width: 50%;
+    /* margin: auto 25px auto 50px; */
+    margin: auto 20px;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: 0px 0px 6px 0px white;
+}
+
+
+/* tools-container */
+
+.meme-editor-container .tools-container {
+    flex-grow: 1;
+    height: 90%;
+    max-height: 600px;
+    max-width: 600px;
+    margin: auto 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    background-color: #383b42;
+    border-radius: 20px;
+    position: relative;
+}
+
+.meme-editor-container .tools-container .btn {
+    height: 55px;
+    width: 55px;
+    margin: 5px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tools-container input[name="txt-input"] {
+    height: 55px;
+    font-size: 1.5rem;
+    font-family: Impact, sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 30px;
+    background-color: #ebeef3;
+    box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
+}
+
+.meme-editor-container .tools-container .line-tools {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tools-container .txt-tools {
+    background-color: #19a59f;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+}
+
+.tools-container .txt-tools>* {
+    justify-self: center;
+    align-self: center;
+    margin: 10px;
+}
+
+.tools-container .txt-tools .btn-select {
+    height: 55px;
+    grid-column: 1/span 3;
+    justify-self: stretch;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
+    font-family: poppins;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+}
+
+.meme-editor-container .tools-container .download-tools form {
+    display: flex;
+}
+
+.meme-editor-container .tools-container .download-tools {
+    display: flex;
+    flex-direction: column;
+}
+
+.download-tools form>* {
+    display: inline-block;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.tools-container .download-tools form .btn {
+    color: white;
+    font-size: 1.3rem;
+    border-radius: 20px;
+}
+
+.tools-container .download-tools .btn-save {
+    color: rgb(88, 88, 88);
+    font-size: 1.3rem;
+    border-radius: 20px;
+    background-color: #ebeef3;
+    box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
+    width: 100%;
+    margin: 10px 0 5px 0;
+}
+
+.tools-container .download-tools .btn-save.saved::after {
+    content: '✔';
+    color: rgb(90, 192, 49);
+    text-shadow: darkgreen;
+}
+
+.tools-container .download-tools form .btn img {
+    margin-right: 10px;
+}
+
+
+/* modal */
+
+.modal {
+    position: absolute;
+    top: 40%;
+    background-color: #f8f8f8;
+    border-radius: 30px;
+    width: fit-content;
+    height: fit-content;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal a {
+    height: 30px;
+    margin: 5px;
+    padding: 7px;
+    border-radius: 15px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 20px;
+}
+
+.modal a.btn-share {
+    background-color: #1e7cd3;
+}
+
+.modal a.btn-close-modal {
+    background-color: #ebeef3;
+    color: rgb(51, 51, 51);
+}
+
+@media (max-width: 950px) {
+    .page-container {
+        flex-direction: column;
+    }
+    .meme-editor-container {
+        flex-direction: column;
+        max-height: fit-content;
+    }
+    .meme-editor-container .canvas-container {
+        margin: 10px auto;
+        height: fit-content;
+        max-width: fit-content;
+        max-height: 250px;
+    }
+    /* tools-container */
+    .meme-editor-container .tools-container {
+        align-self: stretch;
+        max-width: 90%;
+        margin: 5px auto;
+    }
+}
+
+@media (max-width: 450px) {
+    .meme-editor-container .canvas-container {
+        max-height: 200px;
+    }
+    /* tools-container */
+    .meme-editor-container .tools-container {
+        align-self: stretch;
+        max-height: 350px;
+        max-width: 90%;
+        margin: 5px auto;
+    }
+    .meme-editor-container .tools-container .btn {
+        height: 45px;
+        width: 45px;
+        font-size: 2rem;
+    }
+    .meme-editor-container .tools-container .btn img {
+        height: 15px;
+        width: 15px;
+    }
+    .meme-editor-container .tools-container .btn.btn-change-line img {
+        margin: 0;
+    }
+    .tools-container input[name="txt-input"] {
+        height: 45px;
+        font-size: 1.5rem;
+    }
+    .tools-container .txt-tools {
+        height: 40%;
+        background-color: #19a59f;
+    }
+    .tools-container .txt-tools .btn {
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    .tools-container .txt-tools .btn-select {
+        height: 45px;
+        font-size: 0.7rem;
+    }
+    .tools-container .download-tools form .btn {
+        font-size: 0.8rem;
+    }
+    .tools-container .download-tools form .btn img {
+        margin-right: 5px;
+    }
+}

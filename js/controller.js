@@ -3,10 +3,14 @@
 var gCanvas;
 var gCtx;
 var gIsMouseDown = false;
+var gIsMouseOnTxt = false;
+var gCurrLineIdx;
+
 
 function onInit() {
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
+    initMemesServices();
     renderImgs();
     addDragAndDrop();
 }
@@ -28,10 +32,13 @@ function onChangeLinePos(num) {
     drawCanvas()
 }
 
-function onChangeFocusedLine() {
-    changeFocusedLine();
+function onChangeFocusedLine(idx) {
+    console.log('focus');
+    changeFocusedLine(idx);
     const line = getFocusedLine();
     document.querySelector('input[name=txt-input]').value = line.txt;
+    document.querySelector('input[name=stroke-color-input]').value = line.strokeColor;
+    document.querySelector('input[name=fill-color-input]').value = line.fillColor;
 }
 
 function onAddTxt() {
@@ -90,28 +97,28 @@ function drawCanvas() {
     }
 }
 
-function closeModal() {
-    console.log('closing');
-    console.log(document.querySelector('.share-container'));
-    document.querySelector('.share-container').classList.add('hide');
-}
-
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
     const canvasSize = (elContainer.offsetWidth > elContainer.offsetHeight) ? (elContainer.offsetHeight) : (elContainer.offsetWidth);
+    console.log(canvasSize);
     gCanvas.width = canvasSize;
     gCanvas.height = canvasSize;
 }
 
 function onImgClicked(id) {
+    showMemeEditor()
+    resizeCanvas();
+    createMeme(gCanvas.width, id);
+    drawCanvas();
+}
+
+function showMemeEditor() {
+    console.log('showmeme');
     document.querySelector('input[name=txt-input]').value = ''
     document.querySelector('.img-gallery').classList.add('hide');
     document.querySelector('.meme-editor-container').classList.remove('hide');
     document.querySelector('.general-container').classList.add('screen-size');
     document.querySelector('.general-container').classList.remove('content-size');
-    resizeCanvas();
-    createMeme(gCanvas.width, id);
-    drawCanvas();
 }
 
 function renderImgs() {
@@ -130,7 +137,8 @@ function toggleNav() {
 }
 
 function hideContainersExcept(page) {
-    var elContainers = document.querySelectorAll('.page-container');
+    console.log('hideContainersExcept');
+    const elContainers = document.querySelectorAll('.page-container');
     elContainers.forEach(function(elContainer) {
         if (elContainer.classList.contains(page)) {
             elContainer.classList.remove('hide');
@@ -139,12 +147,12 @@ function hideContainersExcept(page) {
             elContainer.classList.add('hide');
         }
         if (elContainer.classList.contains('gallery-container')) onGalleryClicked();
+        if (elContainer.classList.contains('memes-container')) renderSavedMemes();
     });
 }
 
 function showActive(page) {
     var elLis = document.querySelectorAll('nav ul li');
-    console.log(elLis);
     elLis.forEach(function(elLi) {
         if (elLi.classList.contains(`go-to-${page}`)) {
             elLi.classList.add('active');
@@ -172,12 +180,7 @@ function uploadImg(elForm, ev) {
 
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        document.querySelector('.share-container').classList.remove('hide');
-        document.querySelector('.share-container').innerHTML = `
-        <a class="btn btn-share" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share   
-        </a>
-        <a class="btn btn-close-modal" onclick="closeModal()">close</a>`
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`)
     }
 
     doUploadImg(elForm, onSuccess);
@@ -185,7 +188,7 @@ function uploadImg(elForm, ev) {
 
 function doUploadImg(elForm, onSuccess) {
     var formData = new FormData(elForm);
-    fetch('http://ca-upload.com/here/upload.php', {
+    fetch('https://ca-upload.com/here/upload.php', {
             method: 'POST',
             body: formData
         })
@@ -196,6 +199,30 @@ function doUploadImg(elForm, onSuccess) {
         .catch(function(err) {
             console.error(err)
         })
+}
+
+function isMousOnText(offsetX, offsetY) {
+    const lines = getLines();
+    gIsMouseOnTxt = false;
+    document.querySelector('canvas').style.cursor = 'auto';
+    lines.forEach(function(line, idx) {
+        const width = (gCtx.measureText(line.txt).width) / 2
+        const height = line.size / 2;
+        const startX = line.pos.x - width;
+        const endX = line.pos.x + width;
+        const startY = line.pos.y - height * 2;
+        const endY = line.pos.y + height;
+        if ((offsetX > startX) && (offsetX < endX) && ((offsetY > startY) && (offsetY < endY))) {
+            gIsMouseOnTxt = true;
+            // gCtx.beginPath();
+            // gCtx.globalAlpha = 0.5
+            // gCtx.rect(startX, startY, endX, endY);
+            // gCtx.strokeColor = 'white'
+            // gCtx.stroke();
+            gCurrLineIdx = idx;
+            document.querySelector('canvas').style.cursor = 'pointer'
+        }
+    })
 }
 
 function addDragAndDrop() {
@@ -210,9 +237,14 @@ function addDragAndDrop() {
         offsetX = ev.offsetX;
         offsetY = ev.offsetY;
         gIsMouseDown = true;
+        if (gIsMouseOnTxt) {
+            console.log(gIsMouseOnTxt);
+            onChangeFocusedLine(gCurrLineIdx);
+        }
     });
 
     gCanvas.addEventListener('mousemove', ev => {
+        isMousOnText(ev.offsetX, ev.offsetY);
         if (gIsMouseDown) {
             diffX = ev.offsetX - offsetX;
             diffY = ev.offsetY - offsetY;
@@ -241,8 +273,6 @@ function addDragAndDrop() {
         if (gIsMouseDown) {
             diffX = ev.targetTouches[0].clientX - clientX;
             diffY = ev.targetTouches[0].clientY - clientY;
-            console.log('diffX', diffX);
-            console.log('diffY', diffY);
             changeLinePos('x', diffX);
             changeLinePos('y', diffY);
             clientX = ev.targetTouches[0].clientX;
@@ -256,4 +286,43 @@ function addDragAndDrop() {
             gIsMouseDown = false;
         }
     });
+}
+
+function onSaveMeme() {
+    const memeImg = gCanvas.toDataURL()
+    saveMeme(memeImg);
+    document.querySelector('.btn-save').classList.add('saved');
+    setTimeout(setTimeout(function() {
+        document.querySelector('.btn-save').classList.remove('saved');
+    }, 3000))
+}
+
+function onRemoveMeme(memeId) {
+    removeMeme(memeId);
+    setSavedMemes();
+    renderSavedMemes();
+}
+
+function onEditMeme(memeId) {
+    setMemeId(memeId);
+    hideContainersExcept('gallery-container');
+    showMemeEditor();
+    resizeCanvas();
+    drawCanvas();
+}
+
+function renderSavedMemes() {
+    const elSavedMemes = document.querySelector('.memes-container .saved-memes-imgs');
+    const memes = getSavedMemes();
+    var strHTML = memes.reduce(function(str, meme) {
+        return str + `<div class="meme-img">
+        <img src="${meme.memeImg}" alt="">
+        <div class="btns-container">
+        <button class="btn btn-delete" onclick="onRemoveMeme('${meme.id}')">Delete</button>
+        <button class="btn btn-edit" onclick="onEditMeme('${meme.id}')">Edit</button>
+        </div>
+        </div>
+        `
+    }, '');
+    elSavedMemes.innerHTML = strHTML
 }

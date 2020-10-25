@@ -1,9 +1,15 @@
 'use strict'
 
 // var gKeywords = { 'happy': 12, 'funny puk': 1 };
+const MEMES_KEY = 'memesDB'
 var gImgs;
 var gMeme;
-createImgs();
+var gSavedMemes;
+
+function initMemesServices() {
+    createImgs();
+    setSavedMemes();
+}
 
 function changeFontFamily(font) {
     getFocusedLine().family = font;
@@ -35,9 +41,9 @@ function getLines() {
     return gMeme.lines;
 }
 
-function changeFocusedLine() {
-    gMeme.selectedLineIdx = (gMeme.selectedLineIdx < gMeme.lines.length - 1) ? gMeme.selectedLineIdx + 1 : 0
-        // TODO: get a marker in the current line
+function changeFocusedLine(idx) {
+    if (idx) gMeme.selectedLineIdx = idx;
+    else gMeme.selectedLineIdx = (gMeme.selectedLineIdx < gMeme.lines.length - 1) ? gMeme.selectedLineIdx + 1 : 0
 }
 
 function getFocusedLine() {
@@ -73,6 +79,8 @@ function getCurrImg() {
 
 function createMeme(canvasSize = 500, selectedImgId = 1) {
     const meme = {
+        id: makeId(),
+        memeImg: '',
         canvasSize,
         selectedImgId,
         selectedLineIdx: 0,
@@ -119,4 +127,47 @@ function _createImg(id) {
         keywords: []
     }
     return img;
+}
+
+function setSavedMemes() {
+    var memes = getFromLocalStorage(MEMES_KEY);
+    if (!memes || memes.length === 0) {
+        memes = []
+    }
+    gSavedMemes = memes;
+}
+
+function saveMeme(memeImg) {
+    const memeIdx = getMemeIdxById(gMeme.id);
+    if (memeIdx >= 0) gSavedMemes.splice(memeIdx, 1);
+    gSavedMemes.push(gMeme);
+    gMeme.memeImg = memeImg;
+    saveInLocalStorage(MEMES_KEY, gSavedMemes);
+    setSavedMemes();
+}
+
+function getSavedMemes() {
+    return gSavedMemes;
+}
+
+function removeMeme(memeId) {
+    const memeIdx = getMemeIdxById(memeId);
+    if (memeIdx >= 0) {
+        if (confirm('are you sure?')) gSavedMemes.splice(memeIdx, 1);
+        saveInLocalStorage(MEMES_KEY, gSavedMemes);
+    }
+}
+
+function setMemeId(memeId) {
+    const memeIdx = getMemeIdxById(memeId);
+    if (memeIdx >= 0) {
+        gMeme = gSavedMemes[memeIdx]
+    }
+}
+
+function getMemeIdxById(memeId) {
+    const memeIdx = gSavedMemes.findIndex(function(meme) {
+        return (meme.id === memeId)
+    })
+    return memeIdx
 }

@@ -1,0 +1,51 @@
+.memes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.memes-container .saved-memes-imgs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.memes-container .meme-img {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.memes-container img {
+    width: 200px;
+    border-radius: 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.memes-container .btns-container {
+    display: flex;
+}
+
+.memes-container .btns-container>* {
+    height: 30px;
+    margin: 5px;
+    padding: 7px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.memes-container .btns-container .btn-edit {
+    flex-grow: 1;
+    color: whitesmoke;
+    background-color: #1e7cd3;
+    font-size: 1.1rem;
+}
+
+.memes-container .meme-img .btn-delete {
+    background-color: #ebeef3;
+}

@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/buttons.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/memes.css">
+    <link rel="stylesheet" href="css/main.css">
     <title>meme-generator</title>
 </head>
 
@@ -34,7 +37,7 @@
 
             <div class="meme-editor-container hide">
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="700" width="700"></canvas>
+                    <canvas id="my-canvas" height="600" width="600"></canvas>
                 </div>
                 <div class="tools-container">
                     <input onkeyup="onAddTxt()" name="txt-input" type="text">
@@ -61,8 +64,8 @@
                         <option value="serif">serif</option>
                         <option value="sans-serif">sans-serif</option>
                     </select>
-                        <label class="btn btn-stroke-color" for="Stroke-color-input"><img src="./imgs/s.png" alt=""></label>
-                        <input onchange="onChangeStrokeColor(this)" type="color" id="Stroke-color-input" name="Stroke-color-input" hidden>
+                        <label class="btn btn-stroke-color" for="stroke-color-input"><img src="./imgs/s.png" alt=""></label>
+                        <input onchange="onChangeStrokeColor(this)" type="color" id="stroke-color-input" name="stroke-color-input" hidden>
                         <label class="btn btn-fill-color" for="fill-color-input"><img src="./imgs/color.png" alt=""></label>
                         <input onchange="onChangeFillColor(this)" type="color" id="fill-color-input" name="fill-color-input" hidden>
                     </div>
@@ -75,7 +78,7 @@
                             <button type="submit" class="btn-share btn"><img src="./imgs/share.svg" alt="">Share</button>
                             <a href="#" class="btn-download btn" onclick="downloadCanvas(this)" download="my-img.jpg"><img src="./imgs/download.svg" alt=""> Download</a>
                         </form>
-                        <div class="share-container modal hide"></div>
+                        <button class="btn btn-save" onclick="onSaveMeme()">Save</button>
                     </div>
                 </div>
             </div>
@@ -89,7 +92,10 @@
         </div>
         <a name="memes"></a>
         <div class="page-container memes-container hide">
-            memes
+            <h1>My memes</h1>
+            <div class="saved-memes-imgs">
+
+            </div>
         </div>
         <a name="about"></a>
         <div class="page-container about-container hide">
@@ -97,6 +103,8 @@
         </div>
     </div>
 
+    <script src="./js/utils.js"></script>
+    <script src="./js/storage-service.js"></script>
     <script src="./js/controller.js"></script>
     <script src="./js/meme-services.js"></script>
 </body>
