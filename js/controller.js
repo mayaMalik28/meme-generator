@@ -239,7 +239,6 @@ function addDragAndDrop() {
         offsetY = ev.offsetY;
         gIsMouseDown = true;
         if (gIsMouseOnTxt) {
-            console.log(gIsMouseOnTxt);
             onChangeFocusedLine(gCurrLineIdx);
         }
     });
@@ -266,12 +265,20 @@ function addDragAndDrop() {
         clientX = ev.targetTouches[0].clientX;
         clientY = ev.targetTouches[0].clientY;
         gIsMouseDown = true;
+        const elCanvasLeft = document.querySelector('canvas').getBoundingClientRect().left
+        const elCanvasTop = document.querySelector('canvas').getBoundingClientRect().top
+        console.log(elCanvasLeft, elCanvasTop);
+        isMousOnText(clientX - elCanvasLeft, clientY - elCanvasTop);
+        if (gIsMouseOnTxt) {
+            console.log(gIsMouseOnTxt);
+            onChangeFocusedLine(gCurrLineIdx);
+        }
+
     });
 
     gCanvas.addEventListener('touchmove', ev => {
-        console.log(ev);
         ev.preventDefault();
-        if (gIsMouseDown) {
+        if (gIsMouseDown && gIsMouseOnTxt) {
             diffX = ev.targetTouches[0].clientX - clientX;
             diffY = ev.targetTouches[0].clientY - clientY;
             changeLinePos('x', diffX);

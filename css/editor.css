@@ -6,6 +6,7 @@
     display: flex;
     max-width: 1200px;
     max-height: 700px;
+    margin: auto;
 }
 
 .meme-editor-container>* {
