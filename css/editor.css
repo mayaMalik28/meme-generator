@@ -17,8 +17,8 @@
 
 .meme-editor-container .canvas-container {
     flex-grow: 1;
-    /* height: 90%; */
-    max-height: 600px;
+    height: 90%;
+    max-height: 500px;
     max-width: 50%;
     /* margin: auto 25px auto 50px; */
     margin: auto 20px;
